@@ -7,11 +7,14 @@
 //
 
 #import "GVMasterViewController.h"
-
-#import "GVDetailViewController.h"
+#import "GVHTTPCommunication.h"
+#import "GVWebViewController.h"
+#import "GVTrackTableViewCell.h"
+#import "UIImageView+Network.h"
 
 @interface GVMasterViewController () {
     NSMutableArray *_objects;
+    GVHTTPCommunication *http;
 }
 @end
 
@@ -29,12 +32,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
-    self.detailViewController = (GVDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    http = [[GVHTTPCommunication alloc] init];
+    NSURL *url = [NSURL URLWithString:@"http://ws.audioscrobbler.com/2.0/?method=chart.gethypedtracks&api_key=316f518790c69642113e3628d020b9fc&format=json"];
+    [http retrieveURL:url successBlock:^(NSData *response) {
+        NSError *error = nil;
+        NSDictionary *data = [NSJSONSerialization JSONObjectWithData:response options:0 error:&error];
+        if(!error) {
+            NSDictionary *topTracks = data[@"tracks"];
+            _objects = topTracks[@"track"];
+            [self.tableView reloadData];
+        }
+    }];
+
+    self.detailViewController = (GVWebViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,15 +54,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
-{
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
 
 #pragma mark - Table View
 
@@ -65,52 +67,51 @@
     return _objects.count;
 }
 
+/*
+ * return the height of the custom prototype (get's overridden by the tableview on dynamic rows)
+ */
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 58.0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    GVTrackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCell" forIndexPath:indexPath];
 
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    NSDictionary *track = _objects[indexPath.row];
+    cell.trackName.text = track[@"name"];
+    NSDictionary *artist = track[@"artist"];
+    cell.artistName.text = artist[@"name"];
+    
+    NSArray *images = track[@"image"];
+    NSDictionary *firstImage = images[0];
+    NSString *imageURL = firstImage[@"#text"];
+    if(imageURL != nil) {
+        [cell.thumbnail loadImageFromURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"Last_fm_logo"] cachingKey:imageURL];
+    } else {
+        cell.thumbnail.image = [UIImage imageNamed:@"Last_fm_logo"];
+    }
+
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-}
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSDate *object = _objects[indexPath.row];
-        self.detailViewController.detailItem = object;
+    
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        NSDictionary *track = _objects[indexPath.row];
+        NSString* url = track[@"url"];
+        url = [url stringByReplacingOccurrencesOfString:@"www.last.fm" withString:@"m.last.fm"];
+        
+        self.detailViewController.webURL = url;
     }
 }
 
@@ -118,9 +119,12 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
+        NSDictionary *track = _objects[indexPath.row];
+        NSString* url = track[@"url"];
+        url = [url stringByReplacingOccurrencesOfString:@"www.last.fm" withString:@"m.last.fm"];
+        [[segue destinationViewController] setWebURL:url];
     }
 }
+
 
 @end

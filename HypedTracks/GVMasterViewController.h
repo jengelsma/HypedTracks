@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class GVDetailViewController;
+@class GVWebViewController;
 
 @interface GVMasterViewController : UITableViewController
 
-@property (strong, nonatomic) GVDetailViewController *detailViewController;
+@property (strong, nonatomic) GVWebViewController *detailViewController;
 
 @end

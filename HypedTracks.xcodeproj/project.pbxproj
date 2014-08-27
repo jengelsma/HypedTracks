@@ -23,6 +23,12 @@
 		9E396F2519ACCF0100BD0E75 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E396F0119ACCF0100BD0E75 /* UIKit.framework */; };
 		9E396F2D19ACCF0100BD0E75 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E396F2B19ACCF0100BD0E75 /* InfoPlist.strings */; };
 		9E396F2F19ACCF0100BD0E75 /* HypedTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E396F2E19ACCF0100BD0E75 /* HypedTracksTests.m */; };
+		9E396F3A19ACD1B200BD0E75 /* GVHTTPCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E396F3919ACD1B200BD0E75 /* GVHTTPCommunication.m */; };
+		9E396F3D19ACE10F00BD0E75 /* GVWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E396F3C19ACE10F00BD0E75 /* GVWebViewController.m */; };
+		9E396F4019ACEA1D00BD0E75 /* GVTrackTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E396F3F19ACEA1D00BD0E75 /* GVTrackTableViewCell.m */; };
+		9E396F4219ACEB2700BD0E75 /* Last_fm_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E396F4119ACEB2700BD0E75 /* Last_fm_logo.png */; };
+		9E396F4719ACEC9D00BD0E75 /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E396F4419ACEC9D00BD0E75 /* UIImageView+Network.m */; };
+		9E396F4819ACEC9D00BD0E75 /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E396F4619ACEC9D00BD0E75 /* FTWCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +64,17 @@
 		9E396F2A19ACCF0100BD0E75 /* HypedTracksTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HypedTracksTests-Info.plist"; sourceTree = "<group>"; };
 		9E396F2C19ACCF0100BD0E75 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9E396F2E19ACCF0100BD0E75 /* HypedTracksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HypedTracksTests.m; sourceTree = "<group>"; };
+		9E396F3819ACD1B200BD0E75 /* GVHTTPCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVHTTPCommunication.h; sourceTree = "<group>"; };
+		9E396F3919ACD1B200BD0E75 /* GVHTTPCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVHTTPCommunication.m; sourceTree = "<group>"; };
+		9E396F3B19ACE10F00BD0E75 /* GVWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVWebViewController.h; sourceTree = "<group>"; };
+		9E396F3C19ACE10F00BD0E75 /* GVWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVWebViewController.m; sourceTree = "<group>"; };
+		9E396F3E19ACEA1D00BD0E75 /* GVTrackTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVTrackTableViewCell.h; sourceTree = "<group>"; };
+		9E396F3F19ACEA1D00BD0E75 /* GVTrackTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVTrackTableViewCell.m; sourceTree = "<group>"; };
+		9E396F4119ACEB2700BD0E75 /* Last_fm_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Last_fm_logo.png; sourceTree = "<group>"; };
+		9E396F4319ACEC9D00BD0E75 /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
+		9E396F4419ACEC9D00BD0E75 /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
+		9E396F4519ACEC9D00BD0E75 /* FTWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWCache.h; sourceTree = "<group>"; };
+		9E396F4619ACEC9D00BD0E75 /* FTWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,16 +134,27 @@
 		9E396F0319ACCF0100BD0E75 /* HypedTracks */ = {
 			isa = PBXGroup;
 			children = (
+				9E396F4319ACEC9D00BD0E75 /* UIImageView+Network.h */,
+				9E396F4419ACEC9D00BD0E75 /* UIImageView+Network.m */,
+				9E396F4519ACEC9D00BD0E75 /* FTWCache.h */,
+				9E396F4619ACEC9D00BD0E75 /* FTWCache.m */,
 				9E396F0C19ACCF0100BD0E75 /* GVAppDelegate.h */,
+				9E396F4119ACEB2700BD0E75 /* Last_fm_logo.png */,
 				9E396F0D19ACCF0100BD0E75 /* GVAppDelegate.m */,
 				9E396F0F19ACCF0100BD0E75 /* Main_iPhone.storyboard */,
 				9E396F1219ACCF0100BD0E75 /* Main_iPad.storyboard */,
 				9E396F1519ACCF0100BD0E75 /* GVMasterViewController.h */,
 				9E396F1619ACCF0100BD0E75 /* GVMasterViewController.m */,
+				9E396F3B19ACE10F00BD0E75 /* GVWebViewController.h */,
+				9E396F3C19ACE10F00BD0E75 /* GVWebViewController.m */,
+				9E396F3819ACD1B200BD0E75 /* GVHTTPCommunication.h */,
+				9E396F3919ACD1B200BD0E75 /* GVHTTPCommunication.m */,
 				9E396F1819ACCF0100BD0E75 /* GVDetailViewController.h */,
 				9E396F1919ACCF0100BD0E75 /* GVDetailViewController.m */,
 				9E396F1B19ACCF0100BD0E75 /* Images.xcassets */,
 				9E396F0419ACCF0100BD0E75 /* Supporting Files */,
+				9E396F3E19ACEA1D00BD0E75 /* GVTrackTableViewCell.h */,
+				9E396F3F19ACEA1D00BD0E75 /* GVTrackTableViewCell.m */,
 			);
 			path = HypedTracks;
 			sourceTree = "<group>";
@@ -239,6 +267,7 @@
 			files = (
 				9E396F1419ACCF0100BD0E75 /* Main_iPad.storyboard in Resources */,
 				9E396F1C19ACCF0100BD0E75 /* Images.xcassets in Resources */,
+				9E396F4219ACEB2700BD0E75 /* Last_fm_logo.png in Resources */,
 				9E396F1119ACCF0100BD0E75 /* Main_iPhone.storyboard in Resources */,
 				9E396F0819ACCF0100BD0E75 /* InfoPlist.strings in Resources */,
 			);
@@ -259,9 +288,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E396F3A19ACD1B200BD0E75 /* GVHTTPCommunication.m in Sources */,
+				9E396F4719ACEC9D00BD0E75 /* UIImageView+Network.m in Sources */,
+				9E396F4819ACEC9D00BD0E75 /* FTWCache.m in Sources */,
 				9E396F0A19ACCF0100BD0E75 /* main.m in Sources */,
+				9E396F4019ACEA1D00BD0E75 /* GVTrackTableViewCell.m in Sources */,
 				9E396F1719ACCF0100BD0E75 /* GVMasterViewController.m in Sources */,
 				9E396F1A19ACCF0100BD0E75 /* GVDetailViewController.m in Sources */,
+				9E396F3D19ACE10F00BD0E75 /* GVWebViewController.m in Sources */,
 				9E396F0E19ACCF0100BD0E75 /* GVAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
